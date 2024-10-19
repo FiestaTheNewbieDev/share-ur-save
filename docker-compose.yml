@@ -1,6 +1,15 @@
-version: '3.7'
-
 services:
+  api:
+    build: backend
+    ports:
+      - 3000:3000
+    env_file:
+      - .env
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - backend
   postgres:
     image: postgres:12
     env_file:
