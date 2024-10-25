@@ -11,28 +11,39 @@
 ![Redis](https://img.shields.io/badge/Redis-grey?style=flat-square&logo=redis)
 
 ## Architecture
+
 ```mermaid
     graph BT
-        subgraph Frond-End[<b>Front-End</b>]
-            Website[<b>Website</b><br /><ul><li><i>Next.js</i></li><li><i>Redux</i></li></ul>]
+        subgraph App[<b>App</b>]
+            subgraph Frontend[<b>Frontend</b>]
+                Website[<b>Website</b><br /><ul><li>Next.js</li></ul>]
+            end
+
+            subgraph Backend[<b>Backend</b>]
+                API[<b>API</b><br /><ul><li>NestJS</li><li>Express</li><li>Prisma</li></ul>]
+                Postgres[<b>PostgreSQL</b>]
+                Redis[<b>Redis</b>]
+                API <--> Postgres
+                API <--> Redis
+            end
+
+            Website <-- HTTP/HTTPS --> API
+            Nginx[<b>Nginx</b>]
+            Nginx -- Redirect to http://localhost/api --> API
+            Nginx -- Redirect to http://localhost --> Website
         end
-        subgraph Back-End[<b>Back-End</b>]
-            API[<b>API</b><br /><ul><li><i>NestJS</i></li><li><i>Express</i></li><li><i>Prisma</i></li></ul>]
-            Redis[<b>Redis</b>]
-            DB[<b>DB</b><br /><ul><li><i>PostgreSQL</i></li></ul>]
-            API <--> Redis
-            API <--> DB
-        end
-    API <-- HTTP/HTTPS --> Website
+
+        Client[<b>Client</b>]
+        Client <-- HTTP/HTTPS --> Nginx
 ```
 
 ## Installation
 
 ### Prerequisites
 
-- **Node.js** and **npm/yarn**
-- **Docker**
-- **PostgreSQL** and **Redis**
+-   **Node.js** and **npm/yarn**
+-   **Docker**
+-   **PostgreSQL** and **Redis**
 
 ### Clone Project
 
@@ -42,5 +53,5 @@ git clone --recurse-submodules https://github.com/FiestaTheNewbieDev/share-ur-sa
 
 ## GitHub Submodules Repositories
 
-- **Backend**: https://github.com/FiestaTheNewbieDev/share-ur-save-backend.git
-- **Frontend**: https://github.com/FiestaTheNewbieDev/share-ur-save-frontend.git
+-   **Backend**: https://github.com/FiestaTheNewbieDev/share-ur-save-backend.git
+-   **Frontend**: https://github.com/FiestaTheNewbieDev/share-ur-save-frontend.git
