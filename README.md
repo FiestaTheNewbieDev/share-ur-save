@@ -38,6 +38,24 @@
         Client <-- HTTP/HTTPS --> Nginx
 ```
 
+## Database Schema
+
+```mermaid
+    graph BT
+        User[<b>user</b><br /><ul><li>uuid</li><li>username</li><li>display_name</li><li>email</li><li>password</li><li>created_at</li><li>updated_at</li><li>deleted_at</li></ul>]
+
+        Game[<b>game</b><ul><li>uuid</li><li>rawg_id</li><li>slug</li><li>name</li><li>created_at</li><li>updated_at</li><li>deleted_at</li></ul>]
+
+        Save[<b>save</b><ul><li>uuid</li><li>author_uuid</li><li>game_uuid</li><li>title</li><li>description</li><li>download_url</li><li>created_at</li><li>updated_at</li><li>deleted_at</li></ul>]
+
+        SaveUpvote[<b>save_upvote</b><ul><li>user_uuid</li><li>save_uuid</li><li>type</li><li>created_at</li><li>updated_at</li></ul>]
+
+        User <-- 1 - * --> Save
+        Game <-- 1 - * --> Save
+        User <--- SaveUpvote
+        SaveUpvote ---> Save
+```
+
 ## Installation
 
 ### Prerequisites
