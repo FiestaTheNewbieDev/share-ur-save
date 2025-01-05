@@ -10,11 +10,17 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-grey?style=flat-square&logo=postgresql)
 ![Redis](https://img.shields.io/badge/Redis-grey?style=flat-square&logo=redis)
 ![Nginx](https://img.shields.io/badge/Nginx-grey?style=flat-square&logo=nginx)
+![Firebase](https://img.shields.io/badge/Firebase-grey?style=flat-square&logo=firebase)
 
 ## Architecture
 
 ```mermaid
     graph BT
+        subgraph Externals[<b>Externals</b>]
+            FirebaseStorage[<b>Firebase Storage</b>]
+            RAWG[<b>RAWG Video Games Database API</b>]
+            Weglot[<b>Weglot</b>]
+        end
         subgraph App[<b>App</b>]
             subgraph Frontend[<b>Frontend</b>]
                 Website[<b>Website</b><br /><ul><li>Next.js</li><li>Redux</li></ul>]
@@ -36,6 +42,11 @@
 
         Client[<b>Client</b>]
         Client <-- HTTP/HTTPS --> Nginx
+
+        FirebaseStorage <-- HTTP/HTTPS --> API
+        RAWG <-- HTTP/HTTPS --> API
+        Weglot <--> Frontend
+
 ```
 
 ## Database Schema
@@ -60,10 +71,7 @@
 
 ### Prerequisites
 
-- **Node.js** and **npm/yarn**
 - **Docker**
-- **PostgreSQL** and **Redis**
-- **Nginx**
 
 ### Clone Project
 
@@ -75,3 +83,4 @@ git clone --recurse-submodules https://github.com/FiestaTheNewbieDev/share-ur-sa
 
 - **Backend**: https://github.com/FiestaTheNewbieDev/share-ur-save-backend.git
 - **Frontend**: https://github.com/FiestaTheNewbieDev/share-ur-save-frontend.git
+- **Common**: https://github.com/FiestaTheNewbieDev/share-ur-save-common
